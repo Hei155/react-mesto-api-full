@@ -25,7 +25,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(cors({
+app.use('*', cors({
   origin: [
     'https://mesto.project.nomoredomains.work',
     'https://api.mesto.project.nomoredomains.work',
@@ -36,8 +36,6 @@ app.use(cors({
   credentials: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 }));
-
-app.options('*', cors());
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
