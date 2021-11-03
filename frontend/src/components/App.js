@@ -187,7 +187,7 @@ function App() {
 
    React.useEffect(() => {
         checkToken()
-   },[])
+   }, [])
 
     return (
     <CurrentUserContext.Provider value={currentUser}>

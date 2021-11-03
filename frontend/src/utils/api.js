@@ -92,9 +92,9 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'http://api.mesto.project.nomoredomains.work',
+    baseUrl: 'https://api.mesto.project.nomoredomains.work',
     headers: {
-    authorization: 'eab1c7c5-9c80-49c5-90ac-896bf5cee6a9',
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
     }
 });

@@ -1,4 +1,4 @@
-const BASE_URL = "http://api.mesto.project.nomoredomains.work";
+const BASE_URL = "https://api.mesto.project.nomoredomains.work";
 
 export const register = (password, email) => {
     return fetch(`${BASE_URL}/signup`, {
@@ -37,7 +37,7 @@ export const checkToken = (token) => {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type' : 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
     })

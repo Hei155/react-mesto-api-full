@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Joi, celebrate, errors } = require('celebrate');
-const cors = require('cors');
 const login = require('./controllers/login');
 const registration = require('./controllers/registration');
 const auth = require('./middlewares/auth');
@@ -25,14 +24,25 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(cors({
-  origin: 'https://mesto.project.nomoredomains.work',
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Accept'],
-  optionsSuccessStatus: 204,
-  preflightContinue: false,
-  credentials: true,
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-}));
+const allowedCors = [
+  'https://mesto.project.nomoredomains.work',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'];
+  const requestHeaders = req.headers['access-control-request-headers'];
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    res.end();
+  }
+  next();
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
