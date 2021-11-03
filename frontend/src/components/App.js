@@ -187,7 +187,6 @@ function App() {
 
    React.useEffect(() => {
         checkToken()
-        console.log(localStorage)
    },[])
 
     return (
