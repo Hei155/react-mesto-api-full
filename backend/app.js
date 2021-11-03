@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { Joi, celebrate } = require('celebrate');
+const { Joi, celebrate, errors } = require('celebrate');
 const login = require('./controllers/login');
 const registration = require('./controllers/registration');
 const auth = require('./middlewares/auth');
@@ -17,6 +17,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -48,14 +54,12 @@ app.post('/signup', celebrate({
 app.use('/users', auth, require('./routes/users'));
 app.use('/cards', auth, require('./routes/cards'));
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
+app.use((req, res, next) => {
+  next(new Error('Маршрут не найден'));
 });
 
-app.user(errorLogger);
-
+app.use(errorLogger);
+app.use(errors());
 app.use(helper);
 
 app.listen(PORT, () => {
