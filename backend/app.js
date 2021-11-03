@@ -10,14 +10,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-const corsOptions = {
-  origin: 'http://mesto.project.nomoredomains.work',
-  optionsSuccessStatus: 204,
-  preflightContinue: false,
-  credentials: true,
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  allowedHeaders: ['Accept', 'Authorization', 'Content-Type', 'origin'],
-};
 
 app.use(express.json());
 
@@ -33,7 +25,13 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use('*', cors(corsOptions));
+app.use(cors({
+  origin: 'http://mesto.project.nomoredomains.work',
+  optionsSuccessStatus: 204,
+  preflightContinue: false,
+  credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+}));
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
