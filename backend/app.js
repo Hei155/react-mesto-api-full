@@ -26,7 +26,10 @@ app.get('/crash-test', () => {
 });
 
 app.use(cors({
-  origin: 'https://mesto.project.nomoredomains.work',
+  origin: [
+    'https://mesto.project.nomoredomains.work',
+    'https://api.mesto.project.nomoredomains.work',
+  ],
   allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Accept'],
   optionsSuccessStatus: 204,
   preflightContinue: false,
