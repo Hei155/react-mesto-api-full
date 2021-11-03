@@ -11,9 +11,10 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000 } = process.env;
 const app = express();
 const corsOptions = {
-  origin: 'mesto.project.nomoredomains.work',
+  origin: 'http://mesto.project.nomoredomains.work',
   optionsSuccessStatus: 204,
   credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Accept', 'Authorization', 'Content-Type', 'origin'],
 };
 
