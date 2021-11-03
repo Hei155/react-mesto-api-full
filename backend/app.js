@@ -13,6 +13,7 @@ const app = express();
 const corsOptions = {
   origin: 'http://mesto.project.nomoredomains.work',
   optionsSuccessStatus: 204,
+  preflightContinue: false,
   credentials: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Accept', 'Authorization', 'Content-Type', 'origin'],
