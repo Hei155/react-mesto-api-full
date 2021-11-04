@@ -68,7 +68,9 @@ app.use('/users', auth, require('./routes/users'));
 app.use('/cards', auth, require('./routes/cards'));
 
 app.use((req, res, next) => {
-  next(new Error('Маршрут не найден'));
+  const e = new Error('Маршрут не найден');
+  e.statusCode = 404;
+  next(e);
 });
 
 app.use(errorLogger);
