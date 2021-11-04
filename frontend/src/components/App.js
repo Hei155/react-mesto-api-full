@@ -145,7 +145,7 @@ function App() {
            const jwt = localStorage.getItem('jwt');
            auth.checkToken(jwt)
                 .then((res) => {
-                    setEmail(res.data.email);
+                    setEmail(localStorage.getItem('email'));
                     setLoginIn(true);
                     history.push('/');
                     setHeaderLink('Выйти');
@@ -187,7 +187,7 @@ function App() {
 
    React.useEffect(() => {
         checkToken()
-   }, [])
+   },[])
 
     return (
     <CurrentUserContext.Provider value={currentUser}>
