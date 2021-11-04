@@ -32,7 +32,7 @@ function App() {
     const history = useHistory();
 
     function handleCardLike(card) {
-        const isLike = card.likes.some(i => i._id === currentUser._id);
+        const isLike = card.likes.some(i => i === currentUser._id);
         api.changeLikeCardStatus(card._id, isLike)
         .then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
